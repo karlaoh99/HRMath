@@ -1,0 +1,24 @@
+﻿@model HRMath.Models.SetSubjectAdminModel
+
+<div class="card-body card-block">
+    <h4 class="card-title">Cambiar Administrador de @Model.Name</h4>
+    <hr>
+
+    <form asp-controller="Subject" asp-action="SetSubjectAdmin" method="post" enctype="multipart/form-data" class="form-horizontal">
+        <div class="alert alert-danger" role="alert" asp-validation-summary="ModelOnly"></div>
+
+        <input hidden asp-for="@Model.Id" />        
+
+        <div class="form-group">
+            <label for="select" class=" form-control-label">Seleccione un Aministrador</label>
+            <select multiple="multiple" class="form-control" id="select" asp-for="@Model.AdminsId" asp-items="(List<SelectListItem>)ViewBag.Users"></select>
+            <span asp-validation-for="@Model.AdminsId" class="col text-danger"></span>
+        </div>
+
+        <div>
+            <button type="submit" class="btn btn-primary btn-sm">
+                <i class="fa fa-dot-circle-o"></i>Guardar
+            </button>
+        </div>
+    </form>
+</div>

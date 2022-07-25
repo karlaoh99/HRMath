@@ -1,0 +1,45 @@
+﻿@model HRMath.Models.AddSubjectModel
+
+<div class="card-body card-block">
+    <h4 class="card-title">Añadir Asignatura</h4>
+    <hr>
+
+    <form asp-controller="Subject" asp-action="AddSubject" method="post" enctype="multipart/form-data" class="form-horizontal">
+        <div class="alert alert-danger" role="alert" asp-validation-summary="ModelOnly"></div>
+        <div class="form-group">
+            <label for="name" class="form-control-label">Nombre de la asignatura</label>
+            <input asp-for="@Model.Name" type="text" id="name" class="form-control">
+            <span asp-validation-for="@Model.Name" class="col text-danger"></span>
+        </div>
+
+        <div class="form-group table-data__tool">
+            <label for="optative" class="form-control-label">Seleccione si la asignatura es optativa</label>
+            <label class="switch switch-default switch-pill switch-primary mr-2 table-data__tool-right">
+                <input asp-for="@Model.IsOptative" type="checkbox" class="switch-input" checked="@false">
+                <span class="switch-label"></span>
+                <span class="switch-handle"></span>
+            </label>
+        </div>
+
+        <div class="form-group table-data__tool">
+            <label for="anual" class="form-control-label">Seleccione si la asignatura es anual</label>
+            <label class="switch switch-default switch-pill switch-primary mr-2 table-data__tool-right">
+                <input asp-for="@Model.IsAnual" type="checkbox" class="switch-input" checked="@false">
+                <span class="switch-label"></span>
+                <span class="switch-handle"></span>
+            </label>
+        </div>
+
+        <div class="form-group">
+            <label for="multiple-select" class="form-control-label">Carrera a la que pertenece</label>
+            <select multiple="multiple" class="form-control" id="multiple-select" asp-for="@Model.GradesId" asp-items="(List<SelectListItem>)ViewBag.Grades"></select>
+            <span asp-validation-for="@Model.GradesId" class="col text-danger"></span>
+        </div>
+
+        <div>
+            <button type="submit" class="btn btn-primary btn-sm">
+                <i class="fa fa-dot-circle-o"></i>Guardar
+            </button>
+        </div>
+    </form>
+</div>

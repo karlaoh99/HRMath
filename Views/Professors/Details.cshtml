@@ -1,0 +1,207 @@
+@model HRMath.Models.Professor
+@using HRMath.Infraestructure
+
+@{
+    var isAdmin = Context.User.IsInRole("Admin");
+}
+
+<body class="animsition">
+    <div class="page-wrapper">
+        <!-- MAIN CONTENT-->
+        <div class="main-content">
+            <div class="section__content section__content--p30">
+                <div class="container-fluid"> 
+                    <div class="row">
+                        <div class="col-3"></div>
+                        <div class="col-md-6">
+                            <div class="card">
+                                @* <img class="card-img-top" src="~/images/bg-title-01.jpg" alt="Card image cap"> *@
+                                <div class="card-body">
+                                    <h3 class="card-title">@Model.Name
+                                        <span class="badge badge-info float-right mt-1">Disponible</span>
+                                    </h3>
+                                    <div class="location text-sm-center">
+                                            <i class="fa fa-user"></i> Información Personal</div>
+                                    
+                                    <strong>CI:</strong> @Model.PersonalId<br>
+                                    <strong>Correo Electrónico:</strong> @Model.Email<br>
+                                    <strong>Dirección:</strong> @Model.Address<br>
+                                    <strong>Teléfono Móvil:</strong> @Model.Cellphone<br>
+                                    <strong>Teléfono Fijo:</strong> @Model.Landphone<br>
+                                    <strong>Categoría Científica:</strong> @Model.ScientificGrade<br>
+                                    <strong>Categoría Docente:</strong> @Model.TeachingCategory<br>
+                                    
+
+                                    @if (Context.User.IsInRole("Admin"))
+                                    {
+                                        <hr>
+                                        <div class="card-text text-sm-center">
+                                            <button  data-toggle="modal" type="button" class="btn btn-primary btn-sm">
+                                            <i class="fa fa-pencil-square"></i>&nbsp; Edit</button>
+                                        
+                                            <button   type="button" class="btn btn-danger btn-sm">
+                                            <i class="fa fa-trash"></i>&nbsp; Remove</button>
+                                        </div>       
+                                    }
+                                
+                                    
+                                </div>
+                            </div>    
+                        </div>   
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <!-- SUBJECTS DATA-->
+                            <div class="user-data m-b-30">
+                                <h3 class="title-3 m-b-30">
+                                    <i class="fas fa-book"></i>Asignaturas impartidas</h3>
+                                <div class="table-data__tool">
+                                    <div class="table-data__tool-left">
+                                        <div class="filters m-b-45">
+                                            <div class="rs-select2--dark rs-select2--md rs-select2--border">
+                                                <select class="js-select2 au-select-dark" name="time">
+                                                    <option selected="selected">Semestre</option>
+                                                    <option value="">1er Semestre</option>
+                                                    <option value="">2do Semestre</option>
+                                                </select>
+                                                <div class="dropDownSelect2"></div>
+                                            </div>
+                                            <div class="rs-select2--dark rs-select2--md rs-select2--border">
+                                                <select class="js-select2 au-select-dark" name="time">
+                                                    <option selected="selected">Modalidad</option>
+                                                    <option value="">Conferencia</option>
+                                                    <option value="">Clase Práctica</option>
+                                                    <option value="">Laboratorio</option>
+                                                </select>
+                                                <div class="dropDownSelect2"></div>
+                                            </div>
+                                            <button type="submit" class="btn btn-secondary">
+                                                <i class="zmdi zmdi-filter-list"></i>&nbsp; Filter
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="table-responsive table-data">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <td>nombre</td>
+                                                <td>año</td>
+                                                <td>semestre</td>
+                                                <td>modalidad</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach (var s in Model.TeachSubject)
+                                            {
+                                                <tr>
+                                                    <td>@s.IdS</td>
+                                                    <td>
+                                                        <div class="table-data__info">
+                                                            <h6>@s.Year</h6>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div class="table-data__info">
+                                                            @if(s.Semester == 1){
+                                                                <h6>1er Semestre</h6>
+                                                            }else{
+                                                                <h6>2do Semestre</h6>
+                                                            }
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div class="table-data__info">
+                                                            @s.Modality
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="user-data__footer">
+                                </div>
+                            </div>
+                            <!-- END SUBJECTS DATA-->
+                        </div>
+                        <div class="col-lg-6">
+                            <!-- CONTRACTS DATA-->
+                            <div class="user-data m-b-30">
+                                <h3 class="title-3 m-b-30">
+                                    <i class="fas fa-suitcase"></i>contratos</h3>
+                                    <div class="table-data__tool">
+                                        <div class="table-data__tool-left">
+                                            @if(Context.User.IsInRole("Admin")){
+                                                <div class="filters m-b-45">
+                                                    <button class="au-btn au-btn-icon au-btn--green au-btn--small" data-target="#contract-professor" data-toggle="modal">
+                                                        <i class="zmdi zmdi-plus"></i>Añadir</button>
+                                                </div>               
+                                            }
+                                    </div>
+                                </div>
+                                <div class="table-responsive table-data">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <td>Fecha Inicio</td>
+                                                <td>Fecha Finalización</td>
+                                                <td>Cargo</td>
+                                                <td>Tipo</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach (var c in Model.Contract)
+                                            {
+                                                <tr>
+                                                    <td>
+                                                        <div class="table-data__info">
+                                                            <h6>@c.StartDate.ToShortDateString()</h6>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div class="table-data__info">
+                                                            @if (!c.EndDate.HasValue){
+                                                                <h6>Sin fecha</h6>
+                                                            } else
+                                                            {
+                                                                var date = (DateTime)c.EndDate;
+                                                                <h6>@date.ToShortDateString()</h6>
+                                                            }
+                                                            
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div class="table-data__info">
+                                                            <h6>@c.Role</h6>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div class="table-data__info">
+                                                            <h6>@c.Type</h6>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="user-data__footer">
+                                </div>
+                            </div>
+                            <!-- END CONTRACTS DATA-->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="contract-professor" role="dialog">
+        <div class="modal-dialog modal-dialog-centered ">
+            <div class="modal-content">
+                @await Component.InvokeAsync("ContractProfessor", Model.Id)
+            </div>
+        </div>
+    </div>
+</body>
+                   

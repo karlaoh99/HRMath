@@ -1,0 +1,61 @@
+@model HRMath.Models.ContractProfessorModel
+@using HRMath.Infraestructure
+
+
+<div class="card-body card-block">
+    <h4 class="card-title">Contratar Profesor</h4>
+    <hr>
+    <form asp-controller="Professors" asp-action="Contract" method="post" enctype="multipart/form-data" class="form-horizontal">
+        <div class="row form-group">
+            <div class="col-md-4">
+                <label class=" form-control-label">Fecha de Inicio:</label>
+            </div>
+            <div class="col-md-5">
+                <input type="date" asp-for="@Model.StartDate" placeholder="Ingrese el número de CI"  class="form-control">
+            </div>
+            <span asp-validation-for="@Model.StartDate" class="col text-danger"></span>
+        </div>
+        <div class="row form-group">
+            <div class="col-md-4">
+                <label class=" form-control-label">Fecha de Fin:</label>
+            </div>
+            <div class="col-md-5">
+                <input type="date" asp-for="@Model.EndDate" placeholder="Ingrese el número de CI"  class="form-control">
+            </div>
+            <span asp-validation-for="@Model.EndDate" class="col text-danger"></span>
+        </div>
+        <div class="row form-group">
+            <div class="col-md-4">
+                <label for="select" class=" form-control-label">Cargo:</label>
+            </div>
+            <div class="col-md-5">
+                <select asp-for="@Model.Role" class="form-control">
+                    <option value=@null selected="selected">Seleccione</option>
+                    @foreach(var op in Nomenclators.ScientificCategories){
+                        <option value=@op>@op</option>
+                    }
+                </select>
+            </div>
+            <span asp-validation-for="@Model.Role" class="col text-danger"></span>
+        </div>
+        <div class="row form-group">
+            <div class="col-md-4">
+                <label for="select" class=" form-control-label">Tipo:</label>
+            </div>
+            <div class="col-md-5">
+                <select asp-for="@Model.Type" class="form-control">
+                    <option value=@null selected="selected">Seleccione</option>
+                    @foreach(var op in Nomenclators.ScientificCategories){
+                        <option value=@op>@op</option>
+                    }
+                </select>
+            </div>
+            <span asp-validation-for="@Model.Type" class="col text-danger"></span>
+        </div>
+        <div>
+            <button type="submit" class="btn btn-primary btn-sm">
+                <i class="fa fa-dot-circle-o"></i> Contratar
+            </button>
+        </div>
+    </form>
+</div>

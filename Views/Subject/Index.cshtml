@@ -1,0 +1,190 @@
+﻿@using HRMath.Models
+@model ListSubjectsModel
+
+    <body class="animsition">
+        <div class="page-wrapper">
+            <div class="main-content">
+                <div class="section__content section__content--p30">
+                    <div class="container-fluid">
+                        <div class="col-md-12">
+                            @if (ViewBag.ErrorMsg != null)
+                            {
+                                <div class="sufee-alert alert with-close alert-danger alert-dismissible fade show">
+                                    <span class="badge badge-pill badge-danger">Error</span>
+                                    Lo sentimos se ha producido los siguientes errores durante el registro:
+                                    <hr>
+                                    @ViewBag.ErrorMsg
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                            }
+                            @if (ViewBag.SuccessMsg != null)
+                            {
+                                <div class="sufee-alert alert with-close alert-success alert-dismissible fade show">
+                                    <span class="badge badge-pill badge-success">Success</span>
+                                    @ViewBag.SuccessMsg
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                            }
+                            <div class="user-data m-b-30">
+                                <div class="overview-wrap">
+                                    <h3 class="title-3 m-b-30">
+                                        <i class="fa fa-pencil-square"></i>Asignaturas
+                                    </h3>
+                                    @if (Context.User.IsInRole("Admin"))
+                                    {
+                                        <div class="filters">
+                                            <button class="btn btn-success" data-target="#add-subject" data-toggle="modal">
+                                                <i class="zmdi zmdi-plus"></i>&nbsp;Añadir
+                                            </button>
+                                        </div>
+                                    }
+                                </div>
+                                <form asp-controller="Subject" asp-action="Index" method="post">
+                                    <div class="table-data__tool">
+                                        <div class="table-data__tool-left">
+                                            <div class="filters m-b-45">
+                                                <input type="text" asp-for="@Model.Pattern" placeholder="Ingrese nombre de la asignatura a buscar..." class="au-input au-input--xl">
+                                            </div>
+                                        </div>
+                                        <div class="table-data__tool-right">
+                                            <div class="filters m-b-45">
+                                                <div class="rs-select2--dark rs-select2--md rs-select2--border">
+                                                    <select asp-for="@Model.Faculty" class="js-select2">
+                                                        <option value=-1 selected="selected">Facultad</option>
+                                                        @foreach (var fac in ViewBag.Faculties)
+                                                        {
+                                                            <option value=@fac.Id>@fac.Name</option>
+                                                        }
+                                                    </select>
+                                                    <div class="dropDownSelect2"></div>
+                                                </div>
+                                                <div class="rs-select2--dark rs-select2--md  rs-select2--border">
+                                                    <select asp-for="@Model.Grade" class="js-select2">
+                                                        <option value=-1 selected="selected">Carrera</option>
+                                                        @foreach (var grade in ViewBag.Grades)
+                                                        {
+                                                            <option value=@grade.Id>@grade.Name</option>
+                                                        }
+                                                    </select>
+                                                    <div class="dropDownSelect2"></div>
+                                                </div>
+                                                <button type="submit" class="btn btn-secondary">
+                                                    <i class="zmdi zmdi-filter-list"></i>&nbsp; Filtrar
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+
+                                <div class="table-responsive table-data">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <td>Nombre</td>
+                                                <td>Carrera</td>
+                                                <td>Es Anual</td>
+                                                <td>Es Optativa</td>
+                                                <td>Administrador</td>
+                                                <td></td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach (var s in Model.Subjects)
+                                            {
+                                            <tr>
+                                                <td>
+                                                    <div class="table-data__info">
+                                                        <h6>@s.Name</h6>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="table-data__info">
+                                                        @foreach (var g in s.Grades)
+                                                        {
+                                                            <h6>@g</h6>
+                                                        }
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="table-data__info">
+                                                        <h6>@s.IsAnual</h6>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="table-data__info">
+                                                        <h6>@s.IsOptative</h6>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="table-data__info">
+                                                        @foreach (var a in s.Admins)
+                                                        {
+                                                            <h6>@a</h6>
+                                                        }
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="table-data-feature">
+                                                        @if (Context.User.IsInRole("Admin"))
+                                                        {
+                                                            <buttom class="item" data-placement="top" title="Cambiar Administrador" data-target="#@s.Id-admin-subject" data-toggle="modal">
+                                                                <i class="fa fa-user"></i>
+                                                            </buttom>
+
+                                                            <buttom class="item" data-placement="top" title="Editar" data-target="#@s.Id-edit-subject" data-toggle="modal">
+                                                                <i class="zmdi zmdi-edit"></i>
+                                                            </buttom>
+
+                                                            <a asp-action="RemoveSubject" asp-route-id="@s.Id" class="item" data-toggle="tooltip" data-placement="top" title="Eliminar">
+                                                                <i class="zmdi zmdi-delete"></i>
+                                                            </a>
+                                                        }
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            }
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="user-data__footer">
+                                    <!-- ADD THE PAGINATION HERE -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="add-subject" role="dialog">
+            <div class="modal-dialog modal-dialog-centered ">
+                <div class="modal-content">
+                    @await Component.InvokeAsync("AddSubjectSummary")
+                </div>
+            </div>
+        </div>
+
+        @foreach (var s in Model.Subjects)
+        {
+            <div class="modal fade" id="@s.Id-edit-subject" role="dialog">
+                <div class="modal-dialog modal-dialog-centered ">
+                    <div class="modal-content">
+                        @await Component.InvokeAsync("EditSubjectSummary", new { id = s.Id })
+                    </div>
+                </div>
+            </div>
+            <div class="modal fade" id="@s.Id-admin-subject" role="dialog">
+                <div class="modal-dialog modal-dialog-centered ">
+                    <div class="modal-content">
+                        @await Component.InvokeAsync("SetAdminSubjectSummary", new { id = s.Id })
+                    </div>
+                </div>
+            </div>
+        }
+
+    </body>

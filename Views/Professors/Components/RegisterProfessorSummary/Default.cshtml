@@ -1,0 +1,117 @@
+@using HRMath.Infraestructure
+@model HRMath.Models.RegisterProfessorModel
+
+                      
+<div class="card-body card-block">
+    <h4 class="card-title">Añadir profesor</h4>
+    <hr>
+    <form asp-controller="Professors" asp-action="Register" method="post" enctype="multipart/form-data" class="form-horizontal">
+        <div  class="alert alert-danger" role="alert" asp-validation-summary="ModelOnly"></div>
+        <div class="row form-group">
+            <div class="col col-md-5">
+                <label for="text-input" class=" form-control-label">CI</label>
+            </div>
+            <div class="col-12 col-md-7">
+                <input type="text" asp-for="@Model.PersonalId" placeholder="Ingrese el número de CI"  class="form-control">
+            </div>
+            <span asp-validation-for="@Model.PersonalId" class="col text-danger"></span>
+        </div>
+        <div class="row form-group">
+            <div class="col col-md-5">
+                <label for="text-input" class=" form-control-label">Nombre</label>
+            </div>
+            <div class="col-12 col-md-7">
+                <input type="text" asp-for="@Model.Name" placeholder="Ingrese el nombre" class="form-control">
+            </div>
+            <span asp-validation-for="@Model.Name" class="col text-danger"></span>
+        </div>
+        <div class="row form-group">
+            <div class="col col-md-5">
+                <label for="text-input" class=" form-control-label">Primer Apellido</label>
+            </div>
+            <div class="col-12 col-md-7">
+                <input type="text" asp-for="@Model.FirstLastName" placeholder="Ingrese el primer apellido" class="form-control">
+            </div>
+            <span asp-validation-for="@Model.FirstLastName" class="col text-danger"></span>
+        </div>
+        <div class="row form-group">
+            <div class="col col-md-5">
+                <label for="text-input" class=" form-control-label">Segundo Apellido</label>
+            </div>
+            <div class="col-12 col-md-7">
+                <input type="text" asp-for="@Model.SecondLastName" placeholder="Ingrese el segundo apellido" class="form-control">
+            </div>
+            <span asp-validation-for="@Model.SecondLastName" class="col text-danger"></span>
+        </div>
+        <div class="row form-group">
+            <div class="col col-md-5">
+                <label for="email-input" class=" form-control-label">Correo Electrónico</label>
+            </div>
+            <div class="col-12 col-md-7">
+                <input asp-for="@Model.Email" placeholder="Ingrese el correo electrónico" class="form-control">
+            </div>
+            <span asp-validation-for="@Model.Email" class="col text-danger"></span>
+        </div>
+        <div class="row form-group">
+            <div class="col col-md-5">
+                <label for="text-input" class=" form-control-label">Dirección</label>
+            </div>
+            <div class="col-12 col-md-7">
+                <input type="text" asp-for="@Model.Address"  placeholder="Ingrese la dirección" class="form-control">
+            </div>
+            <span asp-validation-for="@Model.Address" class="col text-danger"></span>
+        </div>
+        <div class="row form-group">
+            <div class="col col-md-5">
+                <label for="text-input" class=" form-control-label">Teléfono Móvil</label>
+            </div>
+            <div class="col-12 col-md-7">
+                <input  asp-for="@Model.Cellphone" placeholder="Ingrese el teléfono móvil" class="form-control">
+            </div>
+            <span asp-validation-for="@Model.Cellphone" class="col text-danger"></span>
+
+        </div>
+        <div class="row form-group">
+            <div class="col col-md-5">
+                <label for="text-input" class=" form-control-label">Teléfono Fijo</label>
+            </div>
+            <div class="col-12 col-md-7">
+                <input type="tel" asp-for="@Model.Landphone"  placeholder="Ingrese el teléfono fijo" class="form-control">
+            </div>
+            <span asp-validation-for="@Model.Landphone" class="col text-danger"></span>
+        </div>
+        <div class="row form-group">
+            <div class="col col-md-5">
+                <label for="select" class=" form-control-label">Categoría Científica</label>
+            </div>
+            <div class="col-12 col-md-7">
+                <select asp-for="@Model.ScientificGrade" class="form-control">
+                    <option value=@null selected="selected">Categoría Científica</option>
+                    @foreach(var op in Nomenclators.ScientificCategories){
+                        <option value=@op>@op</option>
+                    }
+                </select>
+            </div>
+            <span asp-validation-for="@Model.ScientificGrade" class="col text-danger"></span>
+        </div>
+        <div class="row form-group">
+            <div class="col col-md-5">
+                <label for="select" class=" form-control-label">Categoría Docente</label>
+            </div>
+            <div class="col-12 col-md-7">
+                <select asp-for="@Model.TeachingCategory" class="form-control">
+                    <option value=@null selected="selected">Categoría Docente</option>
+                    @foreach(var op in Nomenclators.TeachingCategories){
+                        <option value=@op>@op</option>
+                    }
+                </select>
+            </div>
+            <span asp-validation-for="@Model.TeachingCategory" class="col text-danger"></span>
+        </div>
+        <div>
+            <button type="submit" class="btn btn-primary btn-sm">
+                <i class="fa fa-dot-circle-o"></i> Guardar
+            </button>
+        </div>
+    </form>
+</div>

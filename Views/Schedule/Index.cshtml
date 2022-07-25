@@ -1,0 +1,207 @@
+@using HRMath.Models
+@model IQueryable<Class>
+
+
+
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script>document.getElementsByTagName("html")[0].className += " js";</script>
+  <link rel="stylesheet" href="~/cool/schedule/css/style.css">
+  <title>Schedule Template | CodyHouse</title>
+</head>
+
+<body class="animsition">
+    <div class="page-wrapper">
+        <div class="main-content">
+            <div class="section__content section__content--p30">
+                <div class="container-fluid">
+
+                  <div class="card">
+                  <div class="card-body">
+                    <h3 class="location text-sm-center">Horario C111 </h3>
+                     <div class="rs-select2--dark rs-select2--sm rs-select2--border">
+                                            <select class="js-select2" name="category">
+                                                <option value=@null selected="selected">C111</option>
+                                                <option value="">C112</option>
+                                                <option value="">C113</option>
+                                                <option value="">C211</option>
+                                                <option value="">C212</option>
+                                                <option value="">C311</option>
+                                                <option value="">C312</option>
+                                                <option value="">C411</option>
+                                                <option value="">C412</option>
+                                                <option value="">C511</option>
+                                                <option value="">C512</option>
+
+                                            </select>
+                                            <div class="dropDownSelect2"></div>
+                                        </div>
+                     <button class="au-btn au-btn-icon au-btn--green au-btn--small" data-target="#add-professor" data-toggle="modal">
+                                                <i class="zmdi zmdi-plus"></i>Nuevo</button>
+                      <button class="au-btn au-btn-icon au-btn--blue au-btn--small" data-target="#add-professor" data-toggle="modal">Añadir Turno</button>
+                      <button class="au-btn au-btn-icon au-btn--blue au-btn--small" data-target="#add-professor" data-toggle="modal">Exportar</button>
+                    </div>
+                    <hr>
+                    <div class="cd-schedule cd-schedule--loading margin-top-lg margin-bottom-lg js-cd-schedule">
+                      <div class="cd-schedule__timeline">
+                        <ul>
+                          <li><span>08:00</span></li>
+                          <li><span>08:30</span></li>
+                          <li><span>09:00</span></li>
+                          <li><span>09:30</span></li>
+                          <li><span>10:00</span></li>
+                          <li><span>10:30</span></li>
+                          <li><span>11:00</span></li>
+                          <li><span>11:30</span></li>
+                          <li><span>12:00</span></li>
+                          <li><span>12:30</span></li>
+                          <li><span>13:00</span></li>
+                          <li><span>13:30</span></li>
+                          <li><span>14:00</span></li>
+                          <li><span>14:30</span></li>
+                          <li><span>15:00</span></li>
+                          <li><span>15:30</span></li>
+                          <li><span>16:00</span></li>
+                          <li><span>16:30</span></li>
+                          <li><span>17:00</span></li>
+                          <li><span>17:30</span></li>
+              
+                        </ul>
+                      </div> <!-- .cd-schedule__timeline -->
+                    
+                      <div class="cd-schedule__events">
+                        <ul>
+                          <li class="cd-schedule__group">
+                              <div class="cd-schedule__top-info"><span>Lunes</span></div>
+                                <ul>
+                                  <li class="cd-schedule__event">
+                                    <a data-start="08:30" data-end="10:05" data-content="event-abs-circuit" data-event="event-1" href="#0">
+                                      <em class="cd-schedule__name">Programación [Conferencia]</em>
+                                    </a>
+                                  </li>
+                        
+                                  <li class="cd-schedule__event">
+                                    <a data-start="10:15" data-end="11:50" data-content="event-rowing-workout" data-event="event-2" href="#0">
+                                      <em class="cd-schedule__name">Análisis Matemático [Conferencia]</em>
+                                    </a>
+                                  </li>
+                        
+                                  <li class="cd-schedule__event">
+                                    <a data-start="12:00" data-end="13:30"  data-content="event-yoga-1" data-event="event-3" href="#0">
+                                      <em class="cd-schedule__name">Historia de Cuba [Conferencia]</em>
+                                    </a>
+                                  </li>
+                                </ul>
+                          </li>
+                    
+                          <li class="cd-schedule__group">
+                            <div class="cd-schedule__top-info"><span>Martes</span></div>
+                    
+                              <ul>
+                                  <li class="cd-schedule__event">
+                                    <a data-start="08:30" data-end="10:05" data-content="event-abs-circuit" data-event="event-1" href="#0">
+                                      <em class="cd-schedule__name">Algebra I [Conferencia]</em>
+                                    </a>
+                                  </li>
+                        
+                                  <li class="cd-schedule__event">
+                                    <a data-start="10:15" data-end="11:50" data-content="event-rowing-workout" data-event="event-2" href="#0">
+                                      <em class="cd-schedule__name">Lógica [Conferencia]</em>
+                                    </a>
+                                  </li>
+                                </ul>
+                          </li>
+                    
+                          <li class="cd-schedule__group">
+                            <div class="cd-schedule__top-info"><span>Miércoles</span></div>
+                    
+                              <ul>
+                                  <li class="cd-schedule__event">
+                                    <a data-start="08:30" data-end="10:05" data-content="event-abs-circuit" data-event="event-1" href="#0">
+                                      <em class="cd-schedule__name">Programación [Clase Práctica]</em>
+                                    </a>
+                                  </li>
+                        
+                                  <li class="cd-schedule__event">
+                                    <a data-start="10:15" data-end="11:50" data-content="event-rowing-workout" data-event="event-2" href="#0">
+                                      <em class="cd-schedule__name">Lógica [Clase Práctica]</em>
+                                    </a>
+                                  </li>
+                        
+                                  <li class="cd-schedule__event">
+                                    <a data-start="12:00" data-end="13:30"  data-content="event-yoga-1" data-event="event-3" href="#0">
+                                      <em class="cd-schedule__name">Historia de Cuba [Conferencia]</em>
+                                    </a>
+                                  </li>
+                                </ul>
+                          </li>
+                    
+                          <li class="cd-schedule__group">
+                            <div class="cd-schedule__top-info"><span>Jueves</span></div>
+                    
+                              <ul>
+                                  <li class="cd-schedule__event">
+                                    <a data-start="08:30" data-end="10:05" data-content="event-abs-circuit" data-event="event-1" href="#0">
+                                      <em class="cd-schedule__name">Algebra I [Clase Práctica]</em>
+                                    </a>
+                                  </li>
+                        
+                                  <li class="cd-schedule__event">
+                                    <a data-start="10:15" data-end="11:50" data-content="event-rowing-workout" data-event="event-2" href="#0">
+                                      <em class="cd-schedule__name">Análisis Matemático [Clase Práctica]</em>
+                                    </a>
+                                  </li>
+                        
+                               
+                                </ul>
+                          </li>
+                    
+                          <li class="cd-schedule__group">
+                            <div class="cd-schedule__top-info"><span>Viernes</span></div>
+                    
+                            <ul>
+                                  <li class="cd-schedule__event">
+                                    <a data-start="08:30" data-end="10:05" data-content="event-abs-circuit" data-event="event-1" href="#0">
+                                      <em class="cd-schedule__name">Programación [Laboratorio]</em>
+                                    </a>
+                                  </li>
+                        
+                                 
+                                </ul>
+                          </li>
+                        </ul>
+                      </div>
+                
+                      <div class="cd-schedule-modal">
+                        <header class="cd-schedule-modal__header">
+                          <div class="cd-schedule-modal__content">
+                            <span class="cd-schedule-modal__date"></span>
+                            <h3 class="cd-schedule-modal__name"></h3>
+                          </div>
+                    
+                          <div class="cd-schedule-modal__header-bg"></div>
+                        </header>
+                    
+                        <div class="cd-schedule-modal__body">
+                          <div class="cd-schedule-modal__event-info"></div>
+                          <div class="cd-schedule-modal__body-bg"></div>
+                        </div>
+                    
+                        <a href="#0" class="cd-schedule-modal__close text-replace">Close</a>
+                      </div>
+                    
+                      <div class="cd-schedule__cover-layer"></div>
+                    </div> <!-- .cd-schedule -->
+                   </div>
+                </div>
+            </div>
+        </div>
+    </div>
+  <script src="~/cool/schedule/js/util.js"></script> <!-- util functions included in the CodyHouse framework -->
+  <script src="~/cool/schedule/js/main.js"></script>
+</body>
+</html>
+

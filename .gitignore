@@ -1,0 +1,5 @@
+
+bin/Debug/netcoreapp3.0/Microsoft.Identity.Client.dll
+bin/
+wwwroot/
+obj/
